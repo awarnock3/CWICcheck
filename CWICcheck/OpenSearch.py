@@ -19,14 +19,21 @@ def printResults(name,testResults):
       else:
         print "*FAIL* %s: Test \'%s\' failed" % (name,testName)
   else:
-    print "*FAIL* %s: No feed <title> element found" % name
+    print "*FAIL* %s: No test results found" % name
 
 def openSearchTests():
   # Loop over the list of URLs to test  
   for key,value in urls.iteritems():
+    print "Testing site %s" % key
+    
     # Send the URL off for a response
-    response = requests.get(value)
-
+    try:
+      response = requests.get(value)
+    except:
+      print "*FAIL* Could not get response."
+      print " "
+      continue
+      
     # Parse the URL to get all of the parameters
     #  print "Request URL: %s" % value
     urlParms = parseUrl(value)
@@ -44,12 +51,14 @@ def openSearchTests():
       print "*PASS* %s: Got expected HTTP Status Code %s" % (key,expectedStatusCode)
     else:
       print "*FAIL* %s: Failed to get expected HTTP Status Code %s - got %s" % (key, expectedStatusCode, response.status_code)
+      print " "
+      continue
 
     # Print out the HTTP header
     print "%s Header:" % key
-    print "\tContent-Type:", response.headers['content-type']
-    print "\tDate:", response.headers['date']
-    print "\tServer:", response.headers['server']
+    headers = response.headers
+    for headerKey in headers:
+      print "\t%s:%s" % (headerKey,headers[headerKey])
 
     # Done with retrieving the URL, now set up for the XML tests
     rootTree = runOnce(response.content)
@@ -91,7 +100,38 @@ def openSearchTests():
     testResults = testQueryElement(rootTree)
     printResults(key,testResults)
 
+    # Run the tests on the Entry element
     testResults = testEntryElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryTitleElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryIdElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryUpdatedElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryAuthorElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryAuthorNameElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryAuthorEmailElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryBoxElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryDateElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryViaLinkElement(rootTree)
+    printResults(key,testResults)
+
+    testResults = testEntryIconLinkElement(rootTree)
     printResults(key,testResults)
 
     print " "
