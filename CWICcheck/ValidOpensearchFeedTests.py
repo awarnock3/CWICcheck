@@ -10,35 +10,35 @@ nsmap = {None:           "http://www.w3.org/2005/Atom",
 # Run this one time to parse the XML into an ElementTree
 def runOnce(xmlResponse):
   root = etree.fromstring(xmlResponse)
-  print(etree.tostring(root, pretty_print=True))
+  print(etree.tostring(root, pretty_print="PASS"))
   return root
 
 def testFeedElement(root):
   # Look for <feed> element to start
   if (root.tag == "{http://www.w3.org/2005/Atom}feed"):
-    return True
-  return False
+    return "PASS"
+  return "FAIL"
 
 def testTitleElement(root):
     node = root.find("./atom:title",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/title"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
       
       testName = "feed/title not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     
       testName = "Found CWIC title"
       if ("CWIC" in node.text):
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     return testResults
     
 def testUpdatedElement(root):
@@ -46,16 +46,16 @@ def testUpdatedElement(root):
     testResults = {}
     testName = "Found feed/updated"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
       
     if (node is not None):
       testName = "feed/updated not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     return testResults
 
 def testAuthorElement(root):
@@ -63,9 +63,9 @@ def testAuthorElement(root):
     testResults = {}
     testName = "Found feed/author/"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     return testResults
 
 def testAuthorNameElement(root):
@@ -73,16 +73,16 @@ def testAuthorNameElement(root):
     testResults = {}
     testName = "Found feed/author/name"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
       
     if (node is not None):
       testName = "feed/author/name not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     return testResults
 
 def testAuthorEmailElement(root):
@@ -90,16 +90,16 @@ def testAuthorEmailElement(root):
     testResults = {}
     testName = "Found feed/author/email"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
       
     if (node is not None):
       testName = "feed/author/email not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     return testResults
 
 def testIdElement(root):
@@ -107,16 +107,16 @@ def testIdElement(root):
     testResults = {}
     testName = "Found feed/id"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
       
     if (node is not None):
       testName = "feed/id not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     return testResults
   
 def testSelfLinkElement(root):
@@ -124,30 +124,30 @@ def testSelfLinkElement(root):
     testResults = {}
     testName = "Found feed/link[@rel='self']"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     
     testName = "Found feed/link[@rel='self'][@href]"
     href = node.get("href")
     if (href is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     
     testName = "Found feed/link[@rel='self'][@type]"
     href = node.get("type")
     if (href is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     
     testName = "Found feed/link[@rel='self'][@title]"
     href = node.get("title")
     if (href is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     return testResults
   
 def testSearchLinkElement(root):
@@ -155,30 +155,30 @@ def testSearchLinkElement(root):
     testResults = {}
     testName = "Found feed/link[@rel='search']"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     
     testName = "Found link[@rel='search'][@href]"
     href = node.get("href")
     if (href is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     
     testName = "Found feed/link[@rel='search'][@type]"
     href = node.get("type")
     if (href is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     
     testName = "Found feed/link[@rel='search'][@title]"
     href = node.get("title")
     if (href is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     return testResults
 
 def testQueryElement(root):
@@ -186,24 +186,24 @@ def testQueryElement(root):
     testResults = {}
     testName = "Found feed/Query"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     
       testName = "Found Query[@role]"
       roleNode = root.find("./opensearch:Query[@role]",namespaces=nsmap)
       if (roleNode is not None):
-        testResults[testName] = True
+        testResults[testName] = "PASS"
         
 #        testName = "Got correct role value"
 #        role = roleNode.text
 #        print "@role=%s" % role
 #        if (role == "request"):
-#          testResults[testName] = True
+#          testResults[testName] = "PASS"
 #        else:
-#          testResults[testName] = False
+#          testResults[testName] = "FAIL"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
       
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     return testResults
   

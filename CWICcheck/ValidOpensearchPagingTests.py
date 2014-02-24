@@ -12,9 +12,9 @@ def testPaging(root):
     testResults = {}
     testName = "Found <totalResults>"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
 
     totalResults=node.text
     
@@ -22,9 +22,9 @@ def testPaging(root):
     testResults = {}
     testName = "Found feed/startPage"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
 
     startPage=node.text
     
@@ -32,9 +32,9 @@ def testPaging(root):
     testResults = {}
     testName = "Found feed/itemsPerPage"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
 
     itemsPerPage=node.text
     
@@ -47,17 +47,17 @@ def testPaging(root):
     testResults = {}
     testName = "Found feed/link[@rel='first']"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     
     if node is not None:
       testName = "Found feed/link[@rel='first'][@href]"
       href = node.get("href")
       if (href is not None):
-        testResults[testName] = True
+        testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     
     #### Parse the href URL and grab the startPage parameter to test for correct value
     
@@ -67,17 +67,17 @@ def testPaging(root):
       testResults = {}
       testName = "Found feed/link[@rel='prev']"
       if (node is not None):
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     
       if (node is not None):
         testName = "Found feed/link[@rel='prev'][@href]"
         href = node.get("href")
         if (href is not None):
-          testResults[testName] = True
+          testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
         
         #### Parse the href URL and grab the startPage parameter to test for correct value
         
@@ -86,9 +86,9 @@ def testPaging(root):
       testResults = {}
       testName = "Omit feed/link[@rel='prev'] on first page"
       if (node is not None):
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
       else:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
     
     # If startPage < number of pages, look for next link
     if (int(startPage) < numPages):
@@ -96,17 +96,17 @@ def testPaging(root):
       testResults = {}
       testName = "Found feed/link[@rel='next']"
       if (node is not None):
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     
       if (node is not None):
         testName = "Found feed/link[@rel='next'][@href]"
         href = node.get("href")
         if (href is not None):
-          testResults[testName] = True
+          testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
         
       #### Parse the href URL and grab the startPage parameter to test for correct value
           
@@ -115,26 +115,26 @@ def testPaging(root):
       testResults = {}
       testName = "Omit feed/link[@rel='next'] on last page"
       if (node is not None):
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
       else:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
     
     # Look for last link with correct number of pages
       node = root.find("./atom:link[@rel='last']",namespaces=nsmap)
       testResults = {}
       testName = "Found feed/link[@rel='last']"
       if (node is not None):
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     
       if (node is not None):
         testName = "Found feed/link[@rel='last'][@href]"
         href = node.get("href")
         if (href is not None):
-          testResults[testName] = True
+          testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
         
       #### Parse the href URL and grab the startPage parameter to test for correct value
     

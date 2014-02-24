@@ -14,9 +14,9 @@ def testEntryElement(root):
     testResults = {}
     testName = "Found feed/entry"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     return testResults
 
 def testEntryTitleElement(root):
@@ -24,16 +24,16 @@ def testEntryTitleElement(root):
     testResults = {}
     testName = "Found feed/entry/title"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
       
     if (node is not None):
       testName = "feed/entry/title not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     return testResults
     
 def testEntryUpdatedElement(root):
@@ -41,16 +41,16 @@ def testEntryUpdatedElement(root):
     testResults = {}
     testName = "Found feed/entry/updated"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
       
     if (node is not None):
       testName = "feed/entry/updated not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     return testResults
 
 def testEntryAuthorElement(root):
@@ -58,9 +58,9 @@ def testEntryAuthorElement(root):
     testResults = {}
     testName = "Found feed/entry/author/"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     return testResults
 
 def testEntryAuthorNameElement(root):
@@ -68,16 +68,16 @@ def testEntryAuthorNameElement(root):
     testResults = {}
     testName = "Found feed/entry/author/name"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
       
     if (node is not None):
       testName = "feed/entry/author/name not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     return testResults
 
 def testEntryAuthorEmailElement(root):
@@ -85,16 +85,16 @@ def testEntryAuthorEmailElement(root):
     testResults = {}
     testName = "Found feed/entry/author/email"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
       
     if (node is not None):
       testName = "feed/entry/author/email not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     return testResults
 
 def testEntryIdElement(root):
@@ -102,16 +102,16 @@ def testEntryIdElement(root):
     testResults = {}
     testName = "Found feed/entry/id"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
       
     if (node is not None):
       testName = "feed/entry/id not empty"
       if node.text:
-        testResults[testName] = True
+        testResults[testName] = "PASS"
       else:
-        testResults[testName] = False
+        testResults[testName] = "FAIL"
     return testResults
   
 def testEntryBoxElement(root):
@@ -119,9 +119,9 @@ def testEntryBoxElement(root):
     testResults = {}
     testName = "Found feed/entry/georss:box/"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     return testResults
 
 def testEntryDateElement(root):
@@ -129,9 +129,9 @@ def testEntryDateElement(root):
     testResults = {}
     testName = "Found feed/entry/dc:date/"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "FAIL"
     return testResults
 
 def testEntryViaLinkElement(root):
@@ -139,9 +139,9 @@ def testEntryViaLinkElement(root):
     testResults = {}
     testName = "Found feed/entry/link[@rel='via']"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "WARN"
     return testResults
 
 def testEntryIconLinkElement(root):
@@ -149,7 +149,7 @@ def testEntryIconLinkElement(root):
     testResults = {}
     testName = "Found feed/entry/link[@rel='icon']"
     if (node is not None):
-      testResults[testName] = True
+      testResults[testName] = "PASS"
     else:
-      testResults[testName] = False
+      testResults[testName] = "WARN"
     return testResults
