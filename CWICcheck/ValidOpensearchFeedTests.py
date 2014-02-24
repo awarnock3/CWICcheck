@@ -25,10 +25,7 @@ def testTitleElement(root):
     testName = "Found feed/title"
     if (node is not None):
       testResults[testName] = True
-    else:
-      testResults[testName] = False
       
-    if (node is not None):
       testName = "feed/title not empty"
       if node.text:
         testResults[testName] = True
@@ -36,10 +33,12 @@ def testTitleElement(root):
         testResults[testName] = False
     
       testName = "Found CWIC title"
-      if (node.text == "CWIC OpenSearch Response"):
+      if ("CWIC" in node.text):
         testResults[testName] = True
       else:
         testResults[testName] = False
+    else:
+      testResults[testName] = False
     return testResults
     
 def testUpdatedElement(root):
@@ -206,6 +205,5 @@ def testQueryElement(root):
       
     else:
       testResults[testName] = False
-
     return testResults
   
