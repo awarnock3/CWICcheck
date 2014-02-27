@@ -58,14 +58,50 @@ def openSearchTests(siteName,testUrl):
     # Parse the URL to get all of the parameters
     #  print "Request URL: %s" % testUrl
     urlParms = parseUrl(testUrl)
+#    print "urlParms=",urlParms
     
+    queryParams = {}
     if (urlParms.query):
         queryParms = parseQuery(urlParms.query)
 
-    #print "urlParms   =",urlParms
-    #print "queryParms =",queryParms
-    #print " "
+#    print "queryParms =",queryParms
+#    print " "
+    if 'startPage' in queryParms:
+        theStartPage = queryParms['startPage'][0]
+    else:
+        theStartPage = None
+        
+    if 'count' in queryParms:
+        theCount = queryParms['count'][0]
+    else:
+        theCount = None
+        
+    if 'clientId' in queryParms:
+        theClientId = queryParms['clientId'][0]
+    else:
+        theClientId = None
+        
+    if 'datasetId' in queryParms:
+        theDatasetId = queryParms['datasetId'][0]
+    else:
+        theDatasetId = None
 
+    if 'timeStart' in queryParms:
+        theTimeStart = queryParms['timeStart'][0]
+    else:
+        theTimeStart = None
+
+    if 'timeEnd' in queryParms:
+        theTimeEnd = queryParms['timeEnd'][0]
+    else:
+        theTimeEnd = None
+
+    if 'geoBox' in queryParms:
+        theGeoBox = queryParms['geoBox'][0]
+    else:
+        theGeoBox = None
+
+        
     # Check the HTTP return status - it should be 200 for success
     expectedStatusCode = 200
     if (testStatus(expectedStatusCode,response)):
@@ -94,6 +130,8 @@ def openSearchTests(siteName,testUrl):
         print "*FAIL* %s: Got bad Atom Response" % siteName
     
     # Check for the feed title element and contents
+    print " "
+    print "Feed tests"
     testResults = testTitleElement(rootTree)
     printResults(siteName,testResults)
 
@@ -118,13 +156,17 @@ def openSearchTests(siteName,testUrl):
     testResults = testSearchLinkElement(rootTree)
     printResults(siteName,testResults)
 
-    testResults = testPaging(rootTree)
-    printResults(siteName,testResults)
-
     testResults = testQueryElement(rootTree)
     printResults(siteName,testResults)
 
+    print " "
+    print "Paging tests"
+    testResults = testPaging(rootTree,requestedStartPage=theStartPage,requestedCount=theCount)
+    printResults(siteName,testResults)
+
     # Run the tests on the Entry element
+    print " "
+    print "Entry Tests"
     testResults = testEntryElement(rootTree)
     printResults(siteName,testResults)
 

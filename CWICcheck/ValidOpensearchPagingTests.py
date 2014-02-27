@@ -7,36 +7,47 @@ nsmap = {None:           "http://www.w3.org/2005/Atom",
          "esipdiscover": "http://commons.esipfed.org/ns/discovery/1.2/",
          }
 
-def testPaging(root):
-    node = root.find("./opensearch:totalResults",namespaces=nsmap)
+def testPaging(root, requestedStartPage, requestedCount):
     testResults = {}
-    testName = "Found <totalResults>"
+
+    node = root.find("./opensearch:totalResults",namespaces=nsmap)
+    testName = "Found feed/totalResults"
     if (node is not None):
-      testResults[testName] = "PASS"
+        testResults[testName] = "PASS"
     else:
-      testResults[testName] = "FAIL"
+        testResults[testName] = "FAIL"
 
     totalResults=node.text
     
     node = root.find("./opensearch:startPage",namespaces=nsmap)
-    testResults = {}
     testName = "Found feed/startPage"
     if (node is not None):
-      testResults[testName] = "PASS"
+        testResults[testName] = "PASS"
     else:
-      testResults[testName] = "FAIL"
+        testResults[testName] = "FAIL"
 
     startPage=node.text
+    if requestedStartPage:
+        testName = "Returned startPage = requested startPage"
+        if (requestedStartPage == startPage):
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "WARN"
     
     node = root.find("./opensearch:itemsPerPage",namespaces=nsmap)
-    testResults = {}
     testName = "Found feed/itemsPerPage"
     if (node is not None):
-      testResults[testName] = "PASS"
+        testResults[testName] = "PASS"
     else:
-      testResults[testName] = "FAIL"
+        testResults[testName] = "FAIL"
 
     itemsPerPage=node.text
+    if requestedCount:
+        testName = "Returned itemsPerPage = requested count"
+        if (requestedCount == itemsPerPage):
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "WARN"
     
     # Calculate number of pages
     numPages = int(float(totalResults)/float(itemsPerPage) + 0.5)
@@ -44,98 +55,75 @@ def testPaging(root):
     
     # Look for first link
     node = root.find("./atom:link[@rel='first']",namespaces=nsmap)
-    testResults = {}
     testName = "Found feed/link[@rel='first']"
     if (node is not None):
-      testResults[testName] = "PASS"
-    else:
-      testResults[testName] = "FAIL"
-    
-    if node is not None:
-      testName = "Found feed/link[@rel='first'][@href]"
-      href = node.get("href")
-      if (href is not None):
         testResults[testName] = "PASS"
-    else:
-      testResults[testName] = "FAIL"
-    
-    #### Parse the href URL and grab the startPage parameter to test for correct value
-    
-    # If startPage > 1, look for prev link
-    if (int(startPage) > 1):
-      node = root.find("./atom:link[@rel='previous']",namespaces=nsmap)
-      testResults = {}
-      testName = "Found feed/link[@rel='previous']"
-      if (node is not None):
-        testResults[testName] = "PASS"
-      else:
-        testResults[testName] = "FAIL"
-    
-      if (node is not None):
-        testName = "Found feed/link[@rel='previous'][@href]"
+
+        testName = "Found feed/link[@rel='first'][@href]"
         href = node.get("href")
         if (href is not None):
-          testResults[testName] = "PASS"
-      else:
-        testResults[testName] = "FAIL"
-        
-        #### Parse the href URL and grab the startPage parameter to test for correct value
-        
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "FAIL"
     else:
-      node = root.find("./atom:link[@rel='previous']",namespaces=nsmap)
-      testResults = {}
-      testName = "Omit feed/link[@rel='previous'] on first page"
-      if (node is not None):
         testResults[testName] = "FAIL"
-      else:
-        testResults[testName] = "PASS"
+
+    # If startPage > 1, look for prev link
+    if (int(startPage) > 1):
+        node = root.find("./atom:link[@rel='previous']",namespaces=nsmap)
+        testName = "Found feed/link[@rel='previous']"
+        if (node is not None):
+            testResults[testName] = "PASS"
+            testName = "Found feed/link[@rel='previous'][@href]"
+            href = node.get("href")
+            if (href is not None):
+                testResults[testName] = "PASS"
+            else:
+                testResults[testName] = "FAIL"
+        else:
+            testResults[testName] = "FAIL"
+    else: # If startPage is <= 1, no "previous" link should appear
+        node = root.find("./atom:link[@rel='previous']",namespaces=nsmap)
+        testName = "Omit feed/link[@rel='previous'] on first page"
+        if (node is not None):
+            testResults[testName] = "FAIL"
+        else:
+            testResults[testName] = "PASS"
     
     # If startPage < number of pages, look for next link
     if (int(startPage) < numPages):
-      node = root.find("./atom:link[@rel='next']",namespaces=nsmap)
-      testResults = {}
-      testName = "Found feed/link[@rel='next']"
-      if (node is not None):
-        testResults[testName] = "PASS"
-      else:
-        testResults[testName] = "FAIL"
-    
-      if (node is not None):
-        testName = "Found feed/link[@rel='next'][@href]"
-        href = node.get("href")
-        if (href is not None):
-          testResults[testName] = "PASS"
-      else:
-        testResults[testName] = "FAIL"
-        
-      #### Parse the href URL and grab the startPage parameter to test for correct value
-          
-    else:
-      node = root.find("./atom:link[@rel='next']",namespaces=nsmap)
-      testResults = {}
-      testName = "Omit feed/link[@rel='next'] on last page"
-      if (node is not None):
-        testResults[testName] = "FAIL"
-      else:
-        testResults[testName] = "PASS"
+        node = root.find("./atom:link[@rel='next']",namespaces=nsmap)
+        testName = "Found feed/link[@rel='next']"
+        if (node is not None):
+            testResults[testName] = "PASS"
+            testName = "Found feed/link[@rel='next'][@href]"
+            href = node.get("href")
+            if (href is not None):
+                testResults[testName] = "PASS"
+            else:
+                testResults[testName] = "FAIL"
+        else:
+            testResults[testName] = "FAIL"
+    else: # If startPage >= number of pages, no "next" link should appear
+        node = root.find("./atom:link[@rel='next']",namespaces=nsmap)
+        testName = "Omit feed/link[@rel='next'] on last page"
+        if (node is not None):
+            testResults[testName] = "FAIL"
+        else:
+            testResults[testName] = "PASS"
     
     # Look for last link with correct number of pages
-      node = root.find("./atom:link[@rel='last']",namespaces=nsmap)
-      testResults = {}
-      testName = "Found feed/link[@rel='last']"
-      if (node is not None):
+    node = root.find("./atom:link[@rel='last']",namespaces=nsmap)
+    testName = "Found feed/link[@rel='last']"
+    if (node is not None):
         testResults[testName] = "PASS"
-      else:
-        testResults[testName] = "FAIL"
-    
-      if (node is not None):
         testName = "Found feed/link[@rel='last'][@href]"
         href = node.get("href")
         if (href is not None):
-          testResults[testName] = "PASS"
-      else:
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "FAIL"
+    else:
         testResults[testName] = "FAIL"
-        
-      #### Parse the href URL and grab the startPage parameter to test for correct value
-    
+
     return testResults
