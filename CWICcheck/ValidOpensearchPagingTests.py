@@ -63,16 +63,16 @@ def testPaging(root):
     
     # If startPage > 1, look for prev link
     if (int(startPage) > 1):
-      node = root.find("./atom:link[@rel='prev']",namespaces=nsmap)
+      node = root.find("./atom:link[@rel='previous']",namespaces=nsmap)
       testResults = {}
-      testName = "Found feed/link[@rel='prev']"
+      testName = "Found feed/link[@rel='previous']"
       if (node is not None):
         testResults[testName] = "PASS"
       else:
         testResults[testName] = "FAIL"
     
       if (node is not None):
-        testName = "Found feed/link[@rel='prev'][@href]"
+        testName = "Found feed/link[@rel='previous'][@href]"
         href = node.get("href")
         if (href is not None):
           testResults[testName] = "PASS"
@@ -82,9 +82,9 @@ def testPaging(root):
         #### Parse the href URL and grab the startPage parameter to test for correct value
         
     else:
-      node = root.find("./atom:link[@rel='prev']",namespaces=nsmap)
+      node = root.find("./atom:link[@rel='previous']",namespaces=nsmap)
       testResults = {}
-      testName = "Omit feed/link[@rel='prev'] on first page"
+      testName = "Omit feed/link[@rel='previous'] on first page"
       if (node is not None):
         testResults[testName] = "FAIL"
       else:
