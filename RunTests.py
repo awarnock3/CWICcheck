@@ -1,11 +1,11 @@
 import sys, getopt
 from CWICcheck.OpenSearch import openSearchTests
 
-urls = {'INPE':       'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=INPE_LANDSAT7_ETM&startPage=1&count=5&clientId=CWICcheck',
-        'USGS/LSI':   'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=1&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
-        'GHRSST':     'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&startPage=1&count=5&timeStart=2009-09-01T00:00:00Z&timeEnd=2009-09-02T00:00:00Z&geoBox=-76,24,73,78&clientId=CWICcheck',
-        'NASA/ECHO':  'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=GES_DISC_TRMM_G2A12_V6&startPage=1&count=5&timeStart=1997-12-07T00:00:00Z&timeEnd=1997-12-14T00:00:00Z&geoBox=-180,-38,180,38&clientId=CWICcheck',
-        'NASA/ECHO2': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&timeStart=2000-02-24T00:00:00Z&timeEnd=2014-02-19T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
+urls = {'INPE':       'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=INPE_LANDSAT7_ETM&startPage=2&count=10&timeStart=2008-02-04T00:00:00Z&timeEnd=2010-05-31T00:00:00Z&clientId=CWICcheck',
+#        'USGS/LSI':   'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=1&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
+#        'GHRSST':     'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&startPage=1&count=5&timeStart=2009-09-01T00:00:00Z&timeEnd=2009-09-02T00:00:00Z&geoBox=-76,24,73,78&clientId=CWICcheck',
+#        'NASA/ECHO':  'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=GES_DISC_TRMM_G2A12_V6&startPage=1&count=5&timeStart=1997-12-07T00:00:00Z&timeEnd=1997-12-14T00:00:00Z&geoBox=-180,-38,180,38&clientId=CWICcheck',
+#        'NASA/ECHO2': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&timeStart=2000-02-24T00:00:00Z&timeEnd=2014-02-19T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
         }
 usage = '[-n|--name <site name> -u|--url <site URL>]'
 

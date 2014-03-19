@@ -9,6 +9,12 @@ nsmap = {None:           "http://www.w3.org/2005/Atom",
          "dc":           "http://purl.org/dc/elements/1.1/",
          }
 
+def computeEntryCount(root):
+    count_elements = etree.XPath("count(//*[local-name() = $name])")
+    nEntries = count_elements(root, name = "entry")
+    return int(nEntries)
+
+
 def testEntryElement(root):
     node = root.find("./atom:entry[1]",namespaces=nsmap)
     testResults = {}

@@ -167,41 +167,44 @@ def openSearchTests(siteName,testUrl):
     # Run the tests on the Entry element
     print " "
     print "Entry Tests"
-    testResults = testEntryElement(rootTree)
-    printResults(siteName,testResults)
+    numEntries = computeEntryCount(rootTree)
+    
+    if (numEntries > 0):
+        testResults = testEntryElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryTitleElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryTitleElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryIdElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryIdElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryUpdatedElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryUpdatedElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryAuthorElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryAuthorElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryAuthorNameElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryAuthorNameElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryAuthorEmailElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryAuthorEmailElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryBoxElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryBoxElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryDateElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryDateElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryViaLinkElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryViaLinkElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryIconLinkElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryIconLinkElement(rootTree)
+        printResults(siteName,testResults)
 
-    testResults = testEntryAltLinkElement(rootTree)
-    printResults(siteName,testResults)
+        testResults = testEntryAltLinkElement(rootTree)
+        printResults(siteName,testResults)
 
     print " "
 

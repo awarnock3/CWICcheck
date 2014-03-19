@@ -43,15 +43,19 @@ def testPaging(root, requestedStartPage, requestedCount):
 
     itemsPerPage=node.text
     if requestedCount:
-        testName = "Returned itemsPerPage = requested count"
+        testName = "Returned expected itemsPerPage = requested count"
         if (requestedCount == itemsPerPage):
             testResults[testName] = "PASS"
         else:
             testResults[testName] = "WARN"
     
     # Calculate number of pages
-    numPages = int(float(totalResults)/float(itemsPerPage) + 0.5)
-    #print "numPages=",numPages
+    numPages = 0
+    if int(itemsPerPage) > 0:
+        numPages = int(totalResults)/int(requestedCount)
+        if (int(totalResults) % int(requestedCount) > 0):
+            numPages += 1
+        #print "totalResults=%s, requestedCount=%s, itemsPerPage=%s, numPages=%d" % (totalResults,requestedCount,itemsPerPage,numPages)
     
     # Look for first link
     node = root.find("./atom:link[@rel='first']",namespaces=nsmap)
@@ -91,6 +95,7 @@ def testPaging(root, requestedStartPage, requestedCount):
             testResults[testName] = "PASS"
     
     # If startPage < number of pages, look for next link
+    #print "startPage=%s, numPages=%d" % (startPage,numPages)
     if (int(startPage) < numPages):
         node = root.find("./atom:link[@rel='next']",namespaces=nsmap)
         testName = "Found feed/link[@rel='next']"
