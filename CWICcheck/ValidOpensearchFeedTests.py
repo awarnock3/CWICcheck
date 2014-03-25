@@ -10,6 +10,7 @@ nsmap = {None:           "http://www.w3.org/2005/Atom",
          }
 
 def testFeedElement(root):
+    """ Check that the root <feed> element is present."""
     # Look for <feed> element to start
     if (root.tag == "{http://www.w3.org/2005/Atom}feed"):
         return "PASS"
@@ -17,6 +18,9 @@ def testFeedElement(root):
 
 
 def testTitleElement(root):
+    """ Test that the feed <title> element is present and not empty, and that it contains the 
+        correct CWIC title
+        """
     node = root.find("./atom:title",namespaces=nsmap)
     testResults = {}
     
@@ -44,6 +48,7 @@ def testTitleElement(root):
 
 
 def testUpdatedElement(root):
+    """Check that the feed <updated> element is present and not empty."""
     node = root.find("./atom:updated",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/updated"
@@ -62,6 +67,7 @@ def testUpdatedElement(root):
 
 
 def testAuthorElement(root):
+    """Check that the feed <author> element is present."""
     node = root.find("./atom:author",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/author/"
@@ -73,6 +79,7 @@ def testAuthorElement(root):
 
 
 def testAuthorNameElement(root):
+    """ Check that the <name> element in <author> is present and not empty."""
     node = root.find("./atom:author/atom:name",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/author/name"
@@ -91,6 +98,7 @@ def testAuthorNameElement(root):
 
 
 def testAuthorEmailElement(root):
+    """ Check that the <email> element in <author> is present and not empty."""
     node = root.find("./atom:author/atom:email",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/author/email"
@@ -109,6 +117,7 @@ def testAuthorEmailElement(root):
 
 
 def testIdElement(root):
+    """ Check that the feed <id> element is present and not empty."""
     node = root.find("./atom:id",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/id"
@@ -127,6 +136,9 @@ def testIdElement(root):
 
 
 def testSelfLinkElement(root):
+    """ Check that the feed <link rel='self'...> element is present and has the 
+        correct attributes href, type and title
+        """
     node = root.find("./atom:link[@rel='self']",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/link[@rel='self']"
@@ -159,6 +171,9 @@ def testSelfLinkElement(root):
 
 
 def testSearchLinkElement(root):
+    """ Check that the feed <link rel='search'> element is present and has
+        the required attributes href, type and title.
+        """
     node = root.find("./atom:link[@rel='search']",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/link[@rel='search']"
@@ -191,12 +206,17 @@ def testSearchLinkElement(root):
 
 
 def testQueryElement(root):
+    """ Check that the feed <Query...> element is present and has all of the right
+        attributes and values.
+        """
+    # TODO - check values against the requested values
     node = root.find("./opensearch:Query",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/Query"
     if (node is not None):
         testResults[testName] = "PASS"
 
+        # Check that the role attribute is present and has the value of 'request'
         testName = "Found feed/Query[@role]"
         roleNode = root.find("./opensearch:Query[@role]",namespaces=nsmap)
         if (roleNode is not None):
@@ -211,6 +231,7 @@ def testQueryElement(root):
         else:
             testResults[testName] = "FAIL"
 
+        # Check that the startPage attribute is present
         testName = "Found feed/Query[@startPage]"
         pageNode = root.find("./opensearch:Query[@startPage]",namespaces=nsmap)
         if (pageNode is not None):
@@ -218,6 +239,7 @@ def testQueryElement(root):
         else:
             testResults[testName] = "FAIL"
 
+        # Check that the count attribute is present
         testName = "Found feed/Query[@count]"
         countNode = root.find("./opensearch:Query[@count]",namespaces=nsmap)
         if (countNode is not None):
@@ -225,6 +247,7 @@ def testQueryElement(root):
         else:
             testResults[testName] = "FAIL"
 
+        # Check that the datasetId attribute is present
         testName = "Found feed/Query[@cwic:datasetId]"
         datasetNode = root.find("./opensearch:Query[@cwic:datasetId]",namespaces=nsmap)
         if (datasetNode is not None):
@@ -232,6 +255,7 @@ def testQueryElement(root):
         else:
             testResults[testName] = "FAIL"
 
+        # Check that the geo:box attribute is present
         testName = "Found feed/Query[@geo:box]"
         geoboxNode = root.find("./opensearch:Query[@geo:box]",namespaces=nsmap)
         if (geoboxNode is not None):
@@ -239,6 +263,7 @@ def testQueryElement(root):
         else:
             testResults[testName] = "FAIL"
 
+        # Check that the time:start attribute is present
         testName = "Found feed/Query[@time:start]"
         timestartNode = root.find("./opensearch:Query[@time:start]",namespaces=nsmap)
         if (timestartNode is not None):
@@ -246,12 +271,21 @@ def testQueryElement(root):
         else:
             testResults[testName] = "FAIL"
 
+        # Check that the time:end attribute is present
         testName = "Found feed/Query[@time:end]"
-        timestartNode = root.find("./opensearch:Query[@time:end]",namespaces=nsmap)
-        if (timestartNode is not None):
+        timeendNode = root.find("./opensearch:Query[@time:end]",namespaces=nsmap)
+        if (timeendNode is not None):
             testResults[testName] = "PASS"
         else:
             testResults[testName] = "FAIL"       
+
+        # Check that the esipdiscover:clientId attribute is present
+        testName = "Found feed/Query[@esipdiscover:clientId]"
+        clientIdNode = root.find("./opensearch:Query[@esipdiscover:clientId]",namespaces=nsmap)
+        if (clientIdNode is not None):
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "WARN"       
 
     else:
         testResults[testName] = "FAIL"

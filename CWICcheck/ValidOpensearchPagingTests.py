@@ -50,6 +50,9 @@ def testPaging(root, requestedStartPage, requestedCount):
             testResults[testName] = "WARN"
     
     # Calculate number of pages
+    if (requestedCount is None):
+        requestedCount = itemsPerPage
+    
     numPages = 0
     if int(itemsPerPage) > 0:
         numPages = int(totalResults)/int(requestedCount)

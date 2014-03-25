@@ -10,12 +10,35 @@ nsmap = {None:           "http://www.w3.org/2005/Atom",
          }
 
 def computeEntryCount(root):
+    """ Compute the number of <entry> elements returned."""
     count_elements = etree.XPath("count(//*[local-name() = $name])")
     nEntries = count_elements(root, name = "entry")
-    return int(nEntries)
+    if (nEntries):
+        return int(nEntries)
+    else:
+        return 0
+
+    
+def testNoExpectedEntries(root,requestedStartPage, requestedCount):
+    """ Check if we got back no entries if we are at or past the last page of results."""
+    nEntries = computeEntryCount(root)
+    testResults = {}
+    node = root.find("./opensearch:totalResults",namespaces=nsmap)
+    totalResults=int(node.text)
+    if (int(requestedStartPage) * int(requestedCount) > totalResults):
+        testName = "No entries expected"
+        if (nEntries > 0):
+            testResults[testName] = "FAIL"
+        else:
+            testResults[testName] = "PASS"
+    else:
+        testName = "Expected entries returned"
+        testResults[testName] = "FAIL"
+    return testResults
 
 
 def testEntryElement(root):
+    """ Check if we found a first <entry> element."""
     node = root.find("./atom:entry[1]",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry"
@@ -27,6 +50,7 @@ def testEntryElement(root):
 
 
 def testEntryTitleElement(root):
+    """ Check if we found a <title> element in the first <entry> and that it is not empty."""
     node = root.find("./atom:entry[1]/atom:title",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/title"
@@ -45,6 +69,7 @@ def testEntryTitleElement(root):
 
 
 def testEntryUpdatedElement(root):
+    """ Check if we found a <updated> element in the first <entry> and that it is not empty."""
     node = root.find("./atom:entry[1]/atom:updated",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/updated"
@@ -63,6 +88,7 @@ def testEntryUpdatedElement(root):
 
 
 def testEntryAuthorElement(root):
+    """ Check if we found a <author> element in the first <entry>."""
     node = root.find("./atom:entry[1]/atom:author",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/author/"
