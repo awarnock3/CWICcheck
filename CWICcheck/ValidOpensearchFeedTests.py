@@ -1,4 +1,5 @@
 from lxml import etree
+from CwicCheckUtils import *
 
 nsmap = {None:           "http://www.w3.org/2005/Atom",
          "atom":         "http://www.w3.org/2005/Atom",
@@ -291,3 +292,43 @@ def testQueryElement(root):
         testResults[testName] = "FAIL"
     return testResults
   
+
+def testAllFeed(rootTree,siteName):
+    """ Run all of the tests on the <feed> element and required contents."""
+    # Check the feed <title> element
+    testResults = testTitleElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the feed <updated> element
+    testResults = testUpdatedElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the feed <author> element
+    testResults = testAuthorElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <name> element inside of the feed <author> element
+    testResults = testAuthorNameElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <email> element inside of the feed <author> element
+    testResults = testAuthorEmailElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the feed <id> element
+    testResults = testIdElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the feed <link rel='self'...> element
+    testResults = testSelfLinkElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the feed <link rel='search'...> element
+    testResults = testSearchLinkElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the feed <Query> element
+    testResults = testQueryElement(rootTree)
+    printResults(siteName,testResults)
+
+    return

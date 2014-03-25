@@ -1,4 +1,5 @@
 from lxml import etree
+from CwicCheckUtils import *
 
 nsmap = {None:           "http://www.w3.org/2005/Atom",
          "atom":         "http://www.w3.org/2005/Atom",
@@ -100,6 +101,7 @@ def testEntryAuthorElement(root):
 
 
 def testEntryAuthorNameElement(root):
+    """ Check that the <author> element in the first <entry> has a <name> element and that it is not empty."""
     node = root.find("./atom:entry[1]/atom:author/atom:name",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/author/name"
@@ -118,6 +120,7 @@ def testEntryAuthorNameElement(root):
 
 
 def testEntryAuthorEmailElement(root):
+    """ Check that the <author> element in the first <entry> has an <email> element and that it is not empty."""
     node = root.find("./atom:entry[1]/atom:author/atom:email",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/author/email"
@@ -136,6 +139,7 @@ def testEntryAuthorEmailElement(root):
 
 
 def testEntryIdElement(root):
+    """ Check if we found a <id> element in the first <entry> and that it is not empty."""
     node = root.find("./atom:entry[1]/atom:id",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/id"
@@ -154,6 +158,7 @@ def testEntryIdElement(root):
 
 
 def testEntryBoxElement(root):
+    """ Check if we found a <georss:box> element in the first <entry> and that it is not empty."""
     node = root.find("./atom:entry[1]/georss:box",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/georss:box/"
@@ -161,10 +166,19 @@ def testEntryBoxElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        
+    if (node is not None):
+        testName = "feed/entry/georss:box not empty"
+        if node.text:
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "FAIL"
+
     return testResults
 
 
 def testEntryDateElement(root):
+    """ Check if we found a <dc:date> element in the first <entry> and that it is not empty."""
     node = root.find("./atom:entry[1]/dc:date",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/dc:date/"
@@ -172,10 +186,19 @@ def testEntryDateElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+
+    if (node is not None):
+        testName = "feed/entry/dc:date not empty"
+        if node.text:
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "FAIL"
+    
     return testResults
 
 
 def testEntryViaLinkElement(root):
+    """ Check if we found a <link rel='via'> element in the first <entry> and that it is not empty."""
     node = root.find("./atom:entry[1]/atom:link[@rel='via']",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/link[@rel='via']"
@@ -183,10 +206,19 @@ def testEntryViaLinkElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "WARN"
+
+    if (node is not None):
+        testName = "feed/entry/link[@rel='via'] not empty"
+        if node.text:
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "FAIL"
+
     return testResults
 
 
 def testEntryIconLinkElement(root):
+    """ Check if we found a <link rel='icon'> element in the first <entry> and that it is not empty."""
     node = root.find("./atom:entry[1]/atom:link[@rel='icon']",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/link[@rel='icon']"
@@ -194,10 +226,19 @@ def testEntryIconLinkElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "WARN"
+        
+    if (node is not None):
+        testName = "feed/entry/link[@rel='icon'] not empty"
+        if node.text:
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "FAIL"
+
     return testResults
 
 
 def testEntryAltLinkElement(root):
+    """ Check if we found a <link rel='alternate'> element in the first <entry> and that it is not empty."""
     node = root.find("./atom:entry[1]/atom:link[@rel='alternate'][1]",namespaces=nsmap)
     testResults = {}
     testName = "Found feed/entry/link[@rel='alternate']"
@@ -205,4 +246,65 @@ def testEntryAltLinkElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "WARN"
+        
+    if (node is not None):
+        testName = "feed/entry/link[@rel='alternate'] not empty"
+        if node.text:
+            testResults[testName] = "PASS"
+        else:
+            testResults[testName] = "FAIL"
+
     return testResults
+
+
+def testAllEntry(rootTree,siteName):
+    """ Run tests on all of the required elements inside of <entry>"""
+    # Check the feed <entry> element
+    testResults = testEntryElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <title> element inside of the feed <entry> element
+    testResults = testEntryTitleElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <id> element inside of the feed <entry> element
+    testResults = testEntryIdElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <updated> element inside of the feed <entry> element
+    testResults = testEntryUpdatedElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <author> element inside of the feed <entry> element
+    testResults = testEntryAuthorElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <name> element inside of the feed <entry>/<author> element
+    testResults = testEntryAuthorNameElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <email> element inside of the feed <entry>/<author> element
+    testResults = testEntryAuthorEmailElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <geo:box> element inside of the feed <entry> element
+    testResults = testEntryBoxElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <dc:date> element inside of the feed <entry> element
+    testResults = testEntryDateElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <link rel='via'...> element inside of the feed <entry> element
+    testResults = testEntryViaLinkElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <link rel='icon'...> element inside of the feed <entry> element
+    testResults = testEntryIconLinkElement(rootTree)
+    printResults(siteName,testResults)
+
+    # Check the <link rel='alt'> element inside of the feed <entry> element
+    testResults = testEntryAltLinkElement(rootTree)
+    printResults(siteName,testResults)
+
+    return

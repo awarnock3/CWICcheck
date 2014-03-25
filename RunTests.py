@@ -55,7 +55,7 @@ def main(argv):
         openSearchTests(siteName, siteUrl,verbose)
     else: # or just run the defaults
         print "Running default tests"
-        for key,value in urls.iteritems():
+        for key,value in sorted(urls.items()):
             openSearchTests(key,value,verbose)
             print " "
         print "Done."

@@ -1,5 +1,6 @@
 import sys
 import requests
+from CwicCheckUtils import *
 from UrlUtils import *
 from ValidOpensearchFeedTests import *
 from ValidOpensearchPagingTests import *
@@ -9,53 +10,14 @@ urls = {'INPE':       'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?d
         'USGS/LSI':   'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=1&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
         }
 
-# Print out the test results in a fixed format
-def printResults(name,testResults):
-    """ Print all of the test results passed in for the named site."""
-    # Walk the testResults array and print the results for each test
-    if testResults:
-        for testName in testResults:
-            print "*%s* %s: Test \'%s\'" % (testResults[testName],name,testName)
-    else:
-        print "*FAIL* %s: No test results found" % name
 
-# Run this one time to parse the XML into an ElementTree
-def runOnce(xmlResponse):
-    """ Run one time at the start of the test.
-        This parses the XML response into the tree object for later processing with lxml
-        """
-    # Check that we can parse the XML response string
-    try:
-        root = etree.fromstring(xmlResponse)
-    except:
-        print "*FAIL* Could not parse response"
-        print "Got: "
-        print xmlResponse
-        print " "
-        return
-    return root
-
-
-# Pretty-print out the returned response
-def printResponse(root):
-    # If we can parse it, try to print a nice version of it out
-    try:
-        print(etree.tostring(root, pretty_print="PASS"))
-    except:
-        print "*FAIL* Could not parse document to print"
-        print " "
-        return
-    return root
-
-
-# Runs all of the tests on a URL
 def openSearchTests(siteName,testUrl,verbose):
     """ Run all of the tests for a given site and URL and print results."""
     # Loop over the list of URLs to test
     print "Testing site %s" % siteName
+    
     # Parse the incoming URL to get all of the parameters and store them locally
     urlParms = parseUrl(testUrl)
-    
     queryParams = {}
     if (urlParms.query):
         queryParms = parseQuery(urlParms.query)
@@ -110,8 +72,8 @@ def openSearchTests(siteName,testUrl,verbose):
         print " "
         return
       
-
-    if (verbose == "full" or verbose == "headers"):    # Check the HTTP return status - it should be 200 for success
+    # Evaluate the response
+    if (verbose == "full" or verbose == "headers"):    # The HTTP return status should be 200 for success
         expectedStatusCode = 200
         if (testStatus(expectedStatusCode,response)):
             print "*PASS* %s: Got expected HTTP Status Code %s" % (siteName,expectedStatusCode)
@@ -131,6 +93,7 @@ def openSearchTests(siteName,testUrl,verbose):
     # Done with retrieving the URL, now set up for the XML tests by parsing the XML response
     rootTree = runOnce(response.content)
     
+    # Check that the root tree is present
     if rootTree is None:
         print "*FAIL* %s: Failed to get valid XML response" % siteName
         return
@@ -147,53 +110,18 @@ def openSearchTests(siteName,testUrl,verbose):
             return
     
     if (verbose == "full" or verbose == "feed"):
-        # Check for the feed title element and contents
+        # Check the required feed elements and contents
         print " "
-        print "Feed tests"
-    
-        # Check the feed <title> element
-        testResults = testTitleElement(rootTree)
-        printResults(siteName,testResults)
-
-        # Check the feed <updated> element
-        testResults = testUpdatedElement(rootTree)
-        printResults(siteName,testResults)
-
-        # Check the feed <author> element
-        testResults = testAuthorElement(rootTree)
-        printResults(siteName,testResults)
-
-        # Check the <name> element inside of the feed <author> element
-        testResults = testAuthorNameElement(rootTree)
-        printResults(siteName,testResults)
-
-        # Check the <email> element inside of the feed <author> element
-        testResults = testAuthorEmailElement(rootTree)
-        printResults(siteName,testResults)
-
-        # Check the feed <id> element
-        testResults = testIdElement(rootTree)
-        printResults(siteName,testResults)
-
-        # Check the feed <link rel='self'...> element
-        testResults = testSelfLinkElement(rootTree)
-        printResults(siteName,testResults)
-
-        # Check the feed <link rel='search'...> element
-        testResults = testSearchLinkElement(rootTree)
-        printResults(siteName,testResults)
-
-        # Check the feed <Query> element
-        testResults = testQueryElement(rootTree)
-        printResults(siteName,testResults)
-        
+        print "%s Feed tests" % siteName
+        testAllFeed(rootTree,siteName)
+                
         if (verbose == "feed"):
             return
 
     if (verbose == "full" or verbose == "paging"):
-        # Now run the hypermedia pagination tests
+        # Check that the hypermedia pagination links are present
         print " "
-        print "Paging tests"
+        print "%s Paging tests" % siteName
         testResults = testPaging(rootTree,requestedStartPage=theStartPage,requestedCount=theCount)
         printResults(siteName,testResults)
 
@@ -203,61 +131,16 @@ def openSearchTests(siteName,testUrl,verbose):
     if (verbose == "full" or verbose == "entry"):
         # Run the tests on the <entry> element
         print " "
-        print "Entry Tests"
+        print "%s Entry Tests" % siteName
+
         # Check if we got any <entry> elements returned
         numEntries = computeEntryCount(rootTree)
         print "Found %s returned <entry> elements" % numEntries
     
         # If so, see if the first <entry> has all of the expected elements
         if (numEntries > 0):
-            # Check the feed <entry> element
-            testResults = testEntryElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <title> element inside of the feed <entry> element
-            testResults = testEntryTitleElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <id> element inside of the feed <entry> element
-            testResults = testEntryIdElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <updated> element inside of the feed <entry> element
-            testResults = testEntryUpdatedElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <author> element inside of the feed <entry> element
-            testResults = testEntryAuthorElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <name> element inside of the feed <entry>/<author> element
-            testResults = testEntryAuthorNameElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <email> element inside of the feed <entry>/<author> element
-            testResults = testEntryAuthorEmailElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <geo:box> element inside of the feed <entry> element
-            testResults = testEntryBoxElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <dc:date> element inside of the feed <entry> element
-            testResults = testEntryDateElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <link rel='via'...> element inside of the feed <entry> element
-            testResults = testEntryViaLinkElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <link rel='icon'...> element inside of the feed <entry> element
-            testResults = testEntryIconLinkElement(rootTree)
-            printResults(siteName,testResults)
-
-            # Check the <link rel='alt'> element inside of the feed <entry> element
-            testResults = testEntryAltLinkElement(rootTree)
-            printResults(siteName,testResults)
-
+            # If there are entry elements, see if the first one has all of the expected elements
+            testAllEntry(rootTree,siteName)
         else:
             # If we got no <entry> elements returned, make sure we didn't expect to get any
             print "Got no returned entries."
@@ -266,9 +149,11 @@ def openSearchTests(siteName,testUrl,verbose):
         
     print " "
 
+
 # Loops over the list of URLS and runs the tests on each
 def runner():
-    for key,value in urls.iteritems():
+#    for key,value in urls.iteritems():
+    for key,value in sorted(urls.items()):
         openSearchTests(key,value)
 
 # Sets the default function

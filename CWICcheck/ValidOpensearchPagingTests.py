@@ -1,4 +1,5 @@
 from lxml import etree
+from CwicCheckUtils import *
 
 nsmap = {None:           "http://www.w3.org/2005/Atom",
          "atom":         "http://www.w3.org/2005/Atom",
@@ -135,3 +136,7 @@ def testPaging(root, requestedStartPage, requestedCount):
         testResults[testName] = "FAIL"
 
     return testResults
+
+
+def testAllPaging(rootTree,siteName):
+    return
