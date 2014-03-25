@@ -59,6 +59,7 @@ def testEntryTitleElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
 
     if (node is not None):
         testName = "feed/entry/title not empty"
@@ -78,6 +79,7 @@ def testEntryUpdatedElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
 
     if (node is not None):
         testName = "feed/entry/updated not empty"
@@ -109,6 +111,7 @@ def testEntryAuthorNameElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
 
     if (node is not None):
         testName = "feed/entry/author/name not empty"
@@ -128,6 +131,7 @@ def testEntryAuthorEmailElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
 
     if (node is not None):
         testName = "feed/entry/author/email not empty"
@@ -147,6 +151,7 @@ def testEntryIdElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
 
     if (node is not None):
         testName = "feed/entry/id not empty"
@@ -166,6 +171,7 @@ def testEntryBoxElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
         
     if (node is not None):
         testName = "feed/entry/georss:box not empty"
@@ -186,6 +192,7 @@ def testEntryDateElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
 
     if (node is not None):
         testName = "feed/entry/dc:date not empty"
@@ -206,13 +213,14 @@ def testEntryViaLinkElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "WARN"
+        return testResults
 
-    if (node is not None):
-        testName = "feed/entry/link[@rel='via'] not empty"
-        if node.text:
-            testResults[testName] = "PASS"
-        else:
-            testResults[testName] = "FAIL"
+    href = node.get("href")
+    testName = "feed/entry/link[@rel='via'][@href] not empty"
+    if (href is not None):
+        testResults[testName] = "PASS"
+    else:
+        testResults[testName] = "FAIL"
 
     return testResults
 
@@ -226,13 +234,14 @@ def testEntryIconLinkElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "WARN"
-        
-    if (node is not None):
-        testName = "feed/entry/link[@rel='icon'] not empty"
-        if node.text:
-            testResults[testName] = "PASS"
-        else:
-            testResults[testName] = "FAIL"
+        return testResults
+
+    href = node.get("href")
+    testName = "feed/entry/link[@rel='icon'][@href] not empty"
+    if (href is not None):
+        testResults[testName] = "PASS"
+    else:
+        testResults[testName] = "FAIL"
 
     return testResults
 
@@ -246,13 +255,14 @@ def testEntryAltLinkElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "WARN"
-        
-    if (node is not None):
-        testName = "feed/entry/link[@rel='alternate'] not empty"
-        if node.text:
-            testResults[testName] = "PASS"
-        else:
-            testResults[testName] = "FAIL"
+        return testResults
+
+    href = node.get("href")
+    testName = "feed/entry/link[@rel='alternate'][@href] not empty"
+    if (href is not None):
+        testResults[testName] = "PASS"
+    else:
+        testResults[testName] = "FAIL"
 
     return testResults
 

@@ -14,7 +14,7 @@ urls = {'INPE':       'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?d
 def openSearchTests(siteName,testUrl,verbose):
     """ Run all of the tests for a given site and URL and print results."""
     # Loop over the list of URLs to test
-    print "Testing site %s" % siteName
+    print "Test %s" % siteName
     
     # Parse the incoming URL to get all of the parameters and store them locally
     urlParms = parseUrl(testUrl)

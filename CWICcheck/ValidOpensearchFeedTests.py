@@ -57,6 +57,7 @@ def testUpdatedElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
 
     if (node is not None):
         testName = "feed/updated not empty"
@@ -86,15 +87,16 @@ def testAuthorNameElement(root):
     testName = "Found feed/author/name"
     if (node is not None):
         testResults[testName] = "PASS"
-    else:
-        testResults[testName] = "FAIL"
 
-    if (node is not None):
+        # Test that it is not empty
         testName = "feed/author/name not empty"
         if node.text:
             testResults[testName] = "PASS"
         else:
             testResults[testName] = "FAIL"
+    else:
+        testResults[testName] = "FAIL"
+
     return testResults
 
 
@@ -105,15 +107,16 @@ def testAuthorEmailElement(root):
     testName = "Found feed/author/email"
     if (node is not None):
         testResults[testName] = "PASS"
-    else:
-        testResults[testName] = "FAIL"
-
-    if (node is not None):
+        
+        # Test that it is not empty
         testName = "feed/author/email not empty"
         if node.text:
             testResults[testName] = "PASS"
         else:
             testResults[testName] = "FAIL"
+    else:
+        testResults[testName] = "FAIL"
+        
     return testResults
 
 
@@ -124,15 +127,16 @@ def testIdElement(root):
     testName = "Found feed/id"
     if (node is not None):
         testResults[testName] = "PASS"
-    else:
-        testResults[testName] = "FAIL"
-
-    if (node is not None):
+        
+        # Test that it is not empty
         testName = "feed/id not empty"
         if node.text:
             testResults[testName] = "PASS"
         else:
             testResults[testName] = "FAIL"
+    else:
+        testResults[testName] = "FAIL"
+
     return testResults
 
 
@@ -147,6 +151,7 @@ def testSelfLinkElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
     
     testName = "Found feed/link[@rel='self'][@href]"
     href = node.get("href")
@@ -182,6 +187,7 @@ def testSearchLinkElement(root):
         testResults[testName] = "PASS"
     else:
         testResults[testName] = "FAIL"
+        return testResults
     
     testName = "Found link[@rel='search'][@href]"
     linkHref = node.get("href")
