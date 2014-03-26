@@ -1,15 +1,6 @@
 from lxml import etree
 from CwicCheckUtils import *
 
-nsmap = {None:           "http://www.w3.org/2005/Atom",
-         "atom":         "http://www.w3.org/2005/Atom",
-         "opensearch":   "http://a9.com/-/spec/opensearch/1.1/",
-         "cwic":         "http://cwic.wgiss.ceos.org/opensearch/extensions/1.0/",
-         "esipdiscover": "http://commons.esipfed.org/ns/discovery/1.2/",
-         "geo":          "http://a9.com/-/opensearch/extensions/geo/1.0/",
-         "time":         "http://a9.com/-/opensearch/extensions/time/1.0/",
-         }
-
 def testFeedElement(root):
     """ Check that the root <feed> element is present."""
     # Look for <feed> element to start

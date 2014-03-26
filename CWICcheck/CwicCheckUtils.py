@@ -2,6 +2,18 @@ import sys
 import requests
 from lxml import etree
 
+# This is a global
+nsmap = {None:           "http://www.w3.org/2005/Atom",
+         "atom":         "http://www.w3.org/2005/Atom",
+         "opensearch":   "http://a9.com/-/spec/opensearch/1.1/",
+         "cwic":         "http://cwic.wgiss.ceos.org/opensearch/extensions/1.0/",
+         "esipdiscover": "http://commons.esipfed.org/ns/discovery/1.2/",
+         "georss":       "http://www.georss.org/georss/10",
+         "dc":           "http://purl.org/dc/elements/1.1/",
+         "geo":          "http://a9.com/-/opensearch/extensions/geo/1.0/",
+         "time":         "http://a9.com/-/opensearch/extensions/time/1.0/",
+         }
+
 # Print out the test results in a fixed format
 def printResults(name,testResults):
     """ Print all of the test results passed in for the named site."""
