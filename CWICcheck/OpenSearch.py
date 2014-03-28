@@ -18,7 +18,7 @@ def openSearchTests(siteName,testUrl,verbose):
     
     # Parse the incoming URL to get all of the parameters and store them locally
     urlParms = parseUrl(testUrl)
-    queryParams = {}
+    queryParms = {}
     if (urlParms.query):
         queryParms = parseQuery(urlParms.query)
 
@@ -152,9 +152,9 @@ def openSearchTests(siteName,testUrl,verbose):
 
 # Loops over the list of URLS and runs the tests on each
 def runner():
-#    for key,value in urls.iteritems():
+    verbose = "full"
     for key,value in sorted(urls.items()):
-        openSearchTests(key,value)
+        openSearchTests(key,value,verbose)
 
 # Sets the default function
 if __name__ == "__main__":

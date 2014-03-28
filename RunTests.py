@@ -9,12 +9,32 @@ urls = {'INPE5 first page':           'http://cwictest.wgiss.ceos.org/opensearch
         'INPE1 dataset only':         'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=INPE_LANDSAT7_ETM',
         'INPE4 no spatial':           'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=INPE_LANDSAT7_ETM&startPage=1&count=3&timeStart=2008-02-04T00:00:00Z&timeEnd=2010-05-31T00:00:00Z&clientId=CWICcheck',
 
-        'USGS/LSI':   'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=1&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
-#        'GHRSST':     'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&startPage=1&count=5&timeStart=2009-09-01T00:00:00Z&timeEnd=2009-09-02T00:00:00Z&geoBox=-76,24,73,78&clientId=CWICcheck',
-#        'NASA/ECHO':  'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=GES_DISC_TRMM_G2A12_V6&startPage=1&count=5&timeStart=1997-12-07T00:00:00Z&timeEnd=1997-12-14T00:00:00Z&geoBox=-180,-38,180,38&clientId=CWICcheck',
-#        'NASA/ECHO2': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&timeStart=2000-02-24T00:00:00Z&timeEnd=2014-02-19T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
+        'USGS/LSI1 dataset only':         'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8',
+        'USGS/LSI2 default page & count': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
+        'USGS/LSI3 no times':             'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=1&count=5&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
+        'USGS/LSI4 no spatial':           'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=1&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&clientId=CWICcheck',
+        'USGS/LSI5 first page':           'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=1&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
+        'USGS/LSI6 page 2':               'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=2&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
+        'USGS/LSI7 last page':            'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=16&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
+
+        'GHRSST1 dataset only':         'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19',
+        'GHRSST2 default page & count': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&timeStart=2009-09-01T00:00:00Z&timeEnd=2009-09-02T00:00:00Z&geoBox=-76,24,73,78&clientId=CWICcheck',
+        'GHRSST3 no times':             'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&startPage=1&count=5&geoBox=-76,24,73,78&clientId=CWICcheck',
+        'GHRSST4 no spatial':           'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&startPage=1&count=5&timeStart=2009-09-01T00:00:00Z&timeEnd=2009-09-02T00:00:00Z&clientId=CWICcheck',
+        'GHRSST5 first page':           'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&startPage=1&count=5&timeStart=2009-09-01T00:00:00Z&timeEnd=2009-09-02T00:00:00Z&geoBox=-76,24,73,78&clientId=CWICcheck',
+        'GHRSST6 page 2':               'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&startPage=2&count=5&timeStart=2009-09-01T00:00:00Z&timeEnd=2009-09-02T00:00:00Z&geoBox=-76,24,73,78&clientId=CWICcheck',
+        'GHRSST7 last page':            'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&startPage=11&count=5&timeStart=2009-09-01T00:00:00Z&timeEnd=2009-09-02T00:00:00Z&geoBox=-76,24,73,78&clientId=CWICcheck',
+
+        'NASA/ECHO1 dataset only':         'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5',
+        'NASA/ECHO2 default page & count': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
+        'NASA/ECHO3 no times':             'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=1&count=2&geoBox=-180,-90,180,90&clientId=CWICcheck',
+        'NASA/ECHO4 no spatial':           'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=1&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&clientId=CWICcheck',
+        'NASA/ECHO5 first page':           'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=1&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
+        'NASA/ECHO6 page 2':               'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=2&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
+        'NASA/ECHO7 last page':            'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=5&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
+
         }
-usage = """[-n|--name <test name> -u|--url <site URL> -v|--verbose <level>]
+usage = """[-u|--url <site URL> -v|--verbose <level>]
         -v full     Show all output (default)
         -v headers  Show HTTP response header only
         -v response Show XML response only
@@ -43,9 +63,8 @@ def main(argv):
             if opt == '-h':
                 print 'RunTests.py %s' % usage
                 sys.exit()
-            elif opt in ("-n", "--name"):
-                siteName = arg
             elif opt in ("-u", "--url"):
+                siteName = "Command Line"
                 siteUrl = arg
             elif opt in ("-v", "--verbose"):
                 verbose = arg

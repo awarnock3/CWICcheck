@@ -1,9 +1,8 @@
 from lxml import etree
+from CwicCheckUtils import *
 
-def isOsddResponse(response):
-  root = etree.fromstring(response)
-  # Look for <feed> element to start
-  print root.tag
-  if (root.tag == "OpenSearchDescription"):
-    return true
-  return false
+def testOsddResponse(root):
+    # Look for <feed> element to start
+    if (root.tag == "{http://a9.com/-/spec/opensearch/1.1/}OpenSearchDescription"):
+        return "PASS"
+    return "FAIL"

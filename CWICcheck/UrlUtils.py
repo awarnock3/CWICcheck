@@ -2,7 +2,7 @@ from urlparse import urlparse,parse_qs
 
 # Compare the HTTP status code with the expected value
 def testStatus(expectedCode,response):
-    if (response.status_code == expectedCode):
+    if (int(response.status_code) == expectedCode):
         return True
     return False
 

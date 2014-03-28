@@ -46,7 +46,7 @@ def runOnce(xmlResponse):
 def printResponse(root):
     # If we can parse it, try to print a nice version of it out
     try:
-        print(etree.tostring(root, pretty_print="PASS"))
+        print(etree.tostring(root, pretty_print = True))
     except:
         print "*FAIL* Could not parse document to print"
         print " "
