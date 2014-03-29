@@ -4,14 +4,17 @@ from CwicCheckUtils import *
 from UrlUtils import *
 from ValidOsddTests import *
 
-osdds = {'Valid':        "http://cwictest.wgiss.ceos.org/opensearch/datasets/Landsat_8/osdd.xml?clientId=CWICcheck",
-         'NoClientId':   "http://cwictest.wgiss.ceos.org/opensearch/datasets/Landsat_8/osdd.xml",
-         'NoDatasetId':  "http://cwictest.wgiss.ceos.org/opensearch/datasets/osdd.xml?clientId=CWICcheck",
-         'NoParameters': "http://cwictest.wgiss.ceos.org/opensearch/datasets/osdd.xml",
-         'BadDataset':   "http://cwictest.wgiss.ceos.org/opensearch/datasets/foobar/osdd.xml",
+valid_osdds = {'Valid':        "http://cwictest.wgiss.ceos.org/opensearch/datasets/Landsat_8/osdd.xml?clientId=CWICcheck",
+               'NoDatasetId':  "http://cwictest.wgiss.ceos.org/opensearch/datasets/osdd.xml?clientId=CWICcheck",
          }
 
-def osddTests(siteName,testUrl,verbose):
+invalid_osdds = {'BadDataset':   "http://cwictest.wgiss.ceos.org/opensearch/datasets/foobar/osdd.xml",
+                 'NoClientId':   "http://cwictest.wgiss.ceos.org/opensearch/datasets/Landsat_8/osdd.xml",
+                 'NoParameters': "http://cwictest.wgiss.ceos.org/opensearch/datasets/osdd.xml",
+         }
+
+
+def osddTests(siteName,testUrl,expectedStatusCode,verbose):
     """ Run all of the tests for a given site and URL and print results."""
     # Loop over the list of URLs to test
     print "Test %s" % siteName
@@ -45,12 +48,11 @@ def osddTests(siteName,testUrl,verbose):
     
     # Evaluate the response
     if (verbose == "full" or verbose == "headers"):    # The HTTP return status should be 200 for success
-        expectedStatusCode = 200
         if (testStatus(expectedStatusCode,response)):
             print "%s: Got expected HTTP Status Code %s" % (siteName,expectedStatusCode)
         else:
             print "%s: Failed to get expected HTTP Status Code %s - got %s" % (siteName, expectedStatusCode, response.status_code)
-
+            
         # Print out the HTTP header
         print "%s Header:" % siteName
         headers = response.headers
@@ -70,7 +72,7 @@ def osddTests(siteName,testUrl,verbose):
     
     if (verbose == "full" or verbose == "response"):
         # Check that we got a valid Atom response back
-        if testOsddResponse(rootTree):
+        if testOsddElement(rootTree):
             print "%s: Got valid OSDD Response" % siteName
         else:
             print "%s: Got bad OSDD Response" % siteName
@@ -79,15 +81,68 @@ def osddTests(siteName,testUrl,verbose):
         print " "
         printResponse(rootTree)
 
+    if (verbose == "full" or verbose == "osdd"):
+        testResults = testShortNameElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testDescriptionElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testTagsElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testContactElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testImageElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testDeveloperElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testAttributionElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testSyndicationRightElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testLanguageElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testOutputEncodingElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testInputEncodingElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testUrlElement(rootTree)
+        printResults(siteName,testResults)
+    
+        testResults = testUrlParameterElements(rootTree)
+        printResults(siteName,testResults)
+    
     print " "
     return
 
 
+def validOsddTests(siteName,testUrl,verbose):
+    expectedStatusCode = 200
+    osddTests(siteName,testUrl,expectedStatusCode,verbose)
+    
+
+def invalidOsddTests(siteName,testUrl,verbose):
+    expectedStatusCode = 400
+    osddTests(siteName,testUrl,expectedStatusCode,verbose)
+    
+
 # Loops over the list of URLS and runs the tests on each
 def osddRunner():
     verbose = "full"
-    for key,value in sorted(osdds.items()):
-        osddTests(key,value,verbose)
+    for key,value in sorted(valid_osdds.items()):
+        validOsddTests(key,value,verbose)
+        
+    for key,value in sorted(invalid_osdds.items()):
+        invalidOsddTests(key,value,verbose)
 
 # Sets the default function
 if __name__ == "__main__":
