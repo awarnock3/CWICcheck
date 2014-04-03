@@ -4,13 +4,13 @@ from CwicCheckUtils import *
 from UrlUtils import *
 from ValidOsddTests import *
 
-valid_osdds = {'Valid':        "http://cwictest.wgiss.ceos.org/opensearch/datasets/Landsat_8/osdd.xml?clientId=CWICcheck",
-               'NoDatasetId':  "http://cwictest.wgiss.ceos.org/opensearch/datasets/osdd.xml?clientId=CWICcheck",
+valid_osdds = {'Valid':        "http://cwic.wgiss.ceos.org/opensearch/datasets/Landsat_8/osdd.xml?clientId=CWICcheck",
+               'NoDatasetId':  "http://cwic.wgiss.ceos.org/opensearch/datasets/osdd.xml?clientId=CWICcheck",
          }
 
-invalid_osdds = {'BadDataset':   "http://cwictest.wgiss.ceos.org/opensearch/datasets/foobar/osdd.xml",
-                 'NoClientId':   "http://cwictest.wgiss.ceos.org/opensearch/datasets/Landsat_8/osdd.xml",
-                 'NoParameters': "http://cwictest.wgiss.ceos.org/opensearch/datasets/osdd.xml",
+invalid_osdds = {'BadDataset':   "http://cwic.wgiss.ceos.org/opensearch/datasets/foobar/osdd.xml",
+                 'NoClientId':   "http://cwic.wgiss.ceos.org/opensearch/datasets/Landsat_8/osdd.xml",
+                 'NoParameters': "http://cwic.wgiss.ceos.org/opensearch/datasets/osdd.xml",
          }
 
 
