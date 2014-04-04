@@ -13,6 +13,15 @@ invalid_osdds = {'BadDataset':   "http://cwic.wgiss.ceos.org/opensearch/datasets
                  'NoParameters': "http://cwic.wgiss.ceos.org/opensearch/datasets/osdd.xml",
          }
 
+other_osdds = {'GCMD': "http://gcmddemo.gsfc.nasa.gov/KeywordSearch/default/openSearch.jsp?portal=CWIC&clientId=CWICcheck",
+		'NSIDC GHRC': "http://ghrc.nsstc.nasa.gov/hydro/ghost.xml",
+		'NSIDC': "http://nsidc.org/data/polaris/api/opensearch/1.0/dataset.xml",
+		'Mirador': "http://mirador.gsfc.nasa.gov/mirador_dataset_opensearch.xml",
+		'ECHO1': "https://api.echo.nasa.gov/opensearch/datasets/descriptor_document.xml?clientId=CWICcheck",
+		'ECHO2': "https://api.echo.nasa.gov/opensearch/datasets/descriptor_document.xml?clientId=CWICcheck",
+		'WSNEWS': "http://wsnews.jpl.nasa.gov:8100/opensearch/osdd_dataset",
+		'PODAAC': "http://podaac.jpl.nasa.gov:8890/ws/search/podaac-dataset-osd.xml",
+}
 
 def osddTests(siteName,testUrl,expectedStatusCode,verbose):
     """ Run all of the tests for a given site and URL and print results."""
