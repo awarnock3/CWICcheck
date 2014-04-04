@@ -153,6 +153,9 @@ def osddRunner():
     for key,value in sorted(invalid_osdds.items()):
         invalidOsddTests(key,value,verbose)
 
+    for key,value in sorted(other_osdds.items()):
+        invalidOsddTests(key,value,verbose)
+
 # Sets the default function
 if __name__ == "__main__":
     osddRunner()
