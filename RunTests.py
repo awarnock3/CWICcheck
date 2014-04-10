@@ -33,6 +33,7 @@ urls = {'INPE5 first page':           'http://cwic.wgiss.ceos.org/opensearch/gra
         'NASA/ECHO6 page 2':               'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=2&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
         'NASA/ECHO7 last page':            'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=5&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
 
+        'CCMEO': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&startPage=1&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=--140,45,-130,90&clientId=CWICcheck',
         }
 usage = """[-u|--url <site URL> -v|--verbose <level>]
         -v full     Show all output (default)
@@ -84,4 +85,4 @@ def main(argv):
 
 # Set up the default function
 if __name__ == "__main__":
-     main(sys.argv[1:])
+     main(sys.argv[1:]) 
