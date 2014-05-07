@@ -1,4 +1,4 @@
-import sys
+import sys, getopt
 import requests
 from CwicCheckUtils import *
 from UrlUtils import *
@@ -155,8 +155,58 @@ def osddRunner():
         invalidOsddTests(key,value,verbose)
 
     for key,value in sorted(other_osdds.items()):
+        validOsddTests(key,value,verbose)
         invalidOsddTests(key,value,verbose)
 
-# Sets the default function
+usage = """[-n|--name <TestName>] [-u|--url <site URL>] [-v|--verbose <level>]
+        -v full     Show all output (default)
+        -v headers  Show HTTP response header only
+        -v response Show XML response only
+        """
+
+def main(argv):
+    """ Run all of the tests against either the default list of sites or with the site given on the command line."""
+
+    # Grab the test name and URL from the command line and run the tests on that
+    siteName = None
+    siteUrl  = None
+    verbose  = "full"
+
+    if argv: # If something is on the command line
+        # Parse the command line
+        try:
+            opts, args = getopt.getopt(argv,"hn:u:v:",["name=","url=","verbose="])
+        except getopt.GetoptError: # Got something unrecognized, so bail out
+            print 'RunTests.py %s' % usage
+            sys.exit(2)
+        # Grab any options that are there
+        for opt, arg in opts:
+            if opt == '-h':
+                print 'OSDD.py %s' % usage
+                sys.exit()
+            elif opt in ("-u", "--url"):
+                siteName = "Command Line"
+                siteUrl = arg
+            elif opt in ("-v", "--verbose"):
+                verbose = arg
+                
+    # Run one test if URL given on command line.  Otherwise, run the defaults
+    if siteUrl:
+        if not siteName:
+            siteName = siteUrl
+        print "Testing %s OSDD valid features." % siteName
+        validOsddTests(siteName, siteUrl, verbose)
+        print "Testing %s OSDD common errors." % siteName
+        invalidOsddTests(siteName, siteUrl, verbose)
+    else: # or just run the defaults
+        print "Running default tests"
+        osddRunner()
+        print "Done."
+        sys.exit()
+
+    print "Done."
+
+# Set up the default function
 if __name__ == "__main__":
-    osddRunner()
+     main(sys.argv[1:]) # Sets the default function
+#    osddRunner()
