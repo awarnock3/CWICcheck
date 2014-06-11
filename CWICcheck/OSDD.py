@@ -13,7 +13,7 @@ invalid_osdds = {'BadDataset'  : "http://cwic.wgiss.ceos.org/opensearch/datasets
                  'NoParameters': "http://cwic.wgiss.ceos.org/opensearch/datasets/osdd.xml",
          }
 
-other_osdds = {'GCMD'      : "http://gcmddemo.gsfc.nasa.gov/KeywordSearch/default/openSearch.jsp?portal=CWIC&clientId=CWICcheck",
+other_osdds = {'GCMD'      : "http://gcmd.gsfc.nasa.gov/KeywordSearch/default/openSearch.jsp?Portal=CWIC&clientId=CWICcheck",
                'NSIDC GHRC': "http://ghrc.nsstc.nasa.gov/hydro/ghost.xml",
                'NSIDC'     : "http://nsidc.org/data/polaris/api/opensearch/1.0/dataset.xml",
                'Mirador'   : "http://mirador.gsfc.nasa.gov/mirador_dataset_opensearch.xml",
