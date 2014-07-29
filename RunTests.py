@@ -36,7 +36,14 @@ urls = {'INPE5 first page':           'http://cwic.wgiss.ceos.org/opensearch/gra
 #        'EUMETSAT' : "http://rs211980.rs.hosteurope.de/mule/eopos?pI=urn:ogc:def:EOP:EUM:acronym:AVHxxx1B:satellite:M02:fileid:EO:EUM:DAT:METOP:AVHRRL1&dtstart=2013-01-20&dtend=2013-01-22&bbox=-170.00,-50.00,170.00,50.00",
 #        'EUMETSAT no spatial' : "http://rs211980.rs.hosteurope.de/mule/eopos?pI=urn:ogc:def:EOP:EUM:acronym:MSG15:satellite:MSG1:fileid:EO:EUM:DAT:MSG:HRSEVIRI&dtstart=2013-01-20&dtend=2013-01-22",
 #       'FedEO dc:subject, geo:box': "http://geo.spacebel.be/opensearch/request/?httpAccept=application/atom%2Bxml&subject=MYD10A2V5&startRecord=1&maximumRecords=10&bbox=-74,17,-67,20.5",
- 
+
+        'CCMEO1 full': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&startPage=1&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
+        'CCMEO2 default page & count': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
+        'CCMEO1 first page': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&startPage=1&count=3&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
+        'CCMEO1 page 2': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&startPage=2&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
+        'CCMEO1 last page': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&startPage=3&count=3&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
+
+#        'FedEO dc:subject, geo:box': "http://geo.spacebel.be/opensearch/request/?httpAccept=application/atom%2Bxml&subject=MYD10A2V5&startRecord=1&maximumRecords=10&bbox=-74,17,-67,20.5",
         }
 usage = """[-u|--url <site URL> -v|--verbose <level>]
         -v full     Show all output (default)
@@ -88,4 +95,4 @@ def main(argv):
 
 # Set up the default function
 if __name__ == "__main__":
-     main(sys.argv[1:])
+     main(sys.argv[1:]) 
