@@ -21,6 +21,7 @@ other_osdds = {'GCMD'      : "http://gcmd.gsfc.nasa.gov/KeywordSearch/default/op
                'ECHO2'     : "https://api.echo.nasa.gov/opensearch/datasets/descriptor_document.xml?clientId=CWICcheck",
                'WSNEWS'    : "http://wsnews.jpl.nasa.gov:8100/opensearch/osdd_dataset",
                'PODAAC'    : "http://podaac.jpl.nasa.gov:8890/ws/search/podaac-dataset-osd.xml",
+			   'EUMETSAT'  : "http://rs211980.rs.hosteurope.de/mule/os-description/?clientId=CWICcheck",
                }
 
 def osddTests(siteName,testUrl,expectedStatusCode,verbose):

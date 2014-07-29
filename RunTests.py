@@ -33,6 +33,7 @@ urls = {'INPE5 first page':           'http://cwic.wgiss.ceos.org/opensearch/gra
         'NASA/ECHO6 page 2':               'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=2&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
         'NASA/ECHO7 last page':            'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=5&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
 
+		#'EUMETSAT' : "http://rs211980.rs.hosteurope.de/mule/eopos?pI=urn:ogc:def:EOP:EUM:acronym:AVHxxx1B:satellite:M02:fileid:EO:EUM:DAT:METOP:AVHRRL1&dtstart=2013-01-20&dtend=2013-01-22&bbox=-170.00,-50.00,170.00,50.00",
         }
 usage = """[-u|--url <site URL> -v|--verbose <level>]
         -v full     Show all output (default)
