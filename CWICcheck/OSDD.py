@@ -22,7 +22,17 @@ other_osdds = {'GCMD'      : "http://gcmddemo.gsfc.nasa.gov/KeywordSearch/defaul
                'WSNEWS'    : "http://wsnews.jpl.nasa.gov:8100/opensearch/osdd_dataset",
                'PODAAC'    : "http://podaac.jpl.nasa.gov:8890/ws/search/podaac-dataset-osd.xml",
                'FedEO'     : "http://geo.spacebel.be/opensearch/description.xml",
+               'EUMETSAT'  : "http://rs211980.rs.hosteurope.de/mule/os-description/",
                }
+
+usage = """[-u|--url <site URL> -v|--verbose <level>]
+        -v full     Show all output (default)
+        -v headers  Show HTTP response header only
+        -v response Show XML response only
+        -v feed     Run tests on <feed> elements response only
+        -v paging   Run tests on paging hyperlinks in <feed> only
+        -v entry    Run tests on <entry> elements only
+        """
 
 def osddTests(siteName,testUrl,expectedStatusCode,verbose):
     """ Run all of the tests for a given site and URL and print results."""
@@ -135,25 +145,49 @@ def osddTests(siteName,testUrl,expectedStatusCode,verbose):
     return
 
 
-def validOsddTests(siteName,testUrl,verbose):
+def osddRunner(siteName,testUrl,verbose):
     expectedStatusCode = 200
     osddTests(siteName,testUrl,expectedStatusCode,verbose)
-    
 
-def invalidOsddTests(siteName,testUrl,verbose):
-    expectedStatusCode = 400
-    osddTests(siteName,testUrl,expectedStatusCode,verbose)
-    
 
-# Loops over the list of URLS and runs the tests on each
-def osddRunner():
-    verbose = "full"
-    for key,value in sorted(valid_osdds.items()):
-        validOsddTests(key,value,verbose)
-        
-    for key,value in sorted(invalid_osdds.items()):
-        invalidOsddTests(key,value,verbose)
+def main(argv):
+    """ Run all of the tests against either the default list of sites or with the site given on the command line."""
 
+    # Grab the test name and URL from the command line and run the tests on that
+    siteName = None
+    siteUrl  = None
+    verbose  = "full"
+
+    if argv: # If something is on the command line
+        # Parse the command line
+        try:
+            opts, args = getopt.getopt(argv,"hn:u:v:",["name=","url=","verbose="])
+        except getopt.GetoptError: # Got something unrecognized, so bail out
+            print 'RunTests.py %s' % usage
+            sys.exit(2)
+        # Grab any options that are there
+        for opt, arg in opts:
+            if opt == '-h':
+                print 'OSDD.py %s' % usage
+                sys.exit()
+            elif opt in ("-u", "--url"):
+                siteName = "Command Line"
+                siteUrl = arg
+            elif opt in ("-v", "--verbose"):
+                verbose = arg
+                
+    # Run one test if URL given on command line.  Otherwise, run the defaults
+    if siteUrl:
+        osddRunner(siteName, siteUrl,verbose)
+    else: # or just run the defaults
+        print "Running default tests"
+        for key,value in sorted(urls.items()):
+            osddRunner(key,value,verbose)
+            print " "
+        print "Done."
+        sys.exit()
+
+<<<<<<< HEAD
     for key,value in sorted(other_osdds.items()):
         validOsddTests(key,value,verbose)
         invalidOsddTests(key,value,verbose)
@@ -208,5 +242,4 @@ def main(argv):
 
 # Set up the default function
 if __name__ == "__main__":
-     main(sys.argv[1:]) # Sets the default function
-#    osddRunner()
+     main(sys.argv[1:])
