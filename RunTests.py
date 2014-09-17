@@ -16,6 +16,8 @@ urls = {'INPE5 first page':           'http://cwic.wgiss.ceos.org/opensearch/gra
         'USGS/LSI5 first page':           'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=1&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
         'USGS/LSI6 page 2':               'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=2&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
         'USGS/LSI7 last page':            'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=Landsat_8&startPage=16&count=5&timeStart=2013-06-01T00:00:00Z&timeEnd=2013-06-01T23:59:59Z&geoBox=-82.71,-18,82.74,18&clientId=CWICcheck',
+        
+        'EUMETSAT all':         'http://cwicdev.wgiss.ceos.org/opensearch/granules.atom?datasetId=urn_ogc_def_EOP_EUM_acronym_AVHxxx1B_satellite_M02_fileid_EO_EUM_DAT_METOP_AVHRRL1&count=2&startPage=1&timeStart=2013-01-20&timeEnd=2013-01-22&geoBox=-170.00,-50.00,170.00,50.00&clientId=CWICcheck',
 
         'GHRSST1 dataset only':         'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19',
         'GHRSST2 default page & count': 'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=EUR-L3P-NAR_AVHRR_NOAA_19&timeStart=2009-09-01T00:00:00Z&timeEnd=2009-09-02T00:00:00Z&geoBox=-76,24,73,78&clientId=CWICcheck',
@@ -33,15 +35,16 @@ urls = {'INPE5 first page':           'http://cwic.wgiss.ceos.org/opensearch/gra
         'NASA/ECHO6 page 2':               'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=2&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
         'NASA/ECHO7 last page':            'http://cwic.wgiss.ceos.org/opensearch/granules.atom?datasetId=MOD10C2V5&startPage=5&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-02-28T00:00:00Z&geoBox=-180,-90,180,90&clientId=CWICcheck',
 
-#        'EUMETSAT' : "http://rs211980.rs.hosteurope.de/mule/eopos?pI=urn:ogc:def:EOP:EUM:acronym:AVHxxx1B:satellite:M02:fileid:EO:EUM:DAT:METOP:AVHRRL1&dtstart=2013-01-20&dtend=2013-01-22&bbox=-170.00,-50.00,170.00,50.00",
-#        'EUMETSAT no spatial' : "http://rs211980.rs.hosteurope.de/mule/eopos?pI=urn:ogc:def:EOP:EUM:acronym:MSG15:satellite:MSG1:fileid:EO:EUM:DAT:MSG:HRSEVIRI&dtstart=2013-01-20&dtend=2013-01-22",
-#       'FedEO dc:subject, geo:box': "http://geo.spacebel.be/opensearch/request/?httpAccept=application/atom%2Bxml&subject=MYD10A2V5&startRecord=1&maximumRecords=10&bbox=-74,17,-67,20.5",
 
         'CCMEO1 full': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&startPage=1&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
         'CCMEO2 default page & count': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
         'CCMEO1 first page': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&startPage=1&count=3&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
         'CCMEO1 page 2': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&startPage=2&count=2&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
         'CCMEO1 last page': 'http://cwictest.wgiss.ceos.org/opensearch/granules.atom?datasetId=CWIC_REG&startPage=3&count=3&timeStart=2014-01-01T00:00:00Z&timeEnd=2014-01-02T00:00:00Z&geoBox=-140,45,-130,90&clientId=CWICcheck',
+
+        #        'EUMETSAT' : "http://rs211980.rs.hosteurope.de/mule/eopos?pI=urn:ogc:def:EOP:EUM:acronym:AVHxxx1B:satellite:M02:fileid:EO:EUM:DAT:METOP:AVHRRL1&dtstart=2013-01-20&dtend=2013-01-22&bbox=-170.00,-50.00,170.00,50.00",
+#        'EUMETSAT no spatial' : "http://rs211980.rs.hosteurope.de/mule/eopos?pI=urn:ogc:def:EOP:EUM:acronym:MSG15:satellite:MSG1:fileid:EO:EUM:DAT:MSG:HRSEVIRI&dtstart=2013-01-20&dtend=2013-01-22",
+#       'FedEO dc:subject, geo:box': "http://geo.spacebel.be/opensearch/request/?httpAccept=application/atom%2Bxml&subject=MYD10A2V5&startRecord=1&maximumRecords=10&bbox=-74,17,-67,20.5",
 
 #        'FedEO dc:subject, geo:box': "http://geo.spacebel.be/opensearch/request/?httpAccept=application/atom%2Bxml&subject=MYD10A2V5&startRecord=1&maximumRecords=10&bbox=-74,17,-67,20.5",
         }
