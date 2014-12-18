@@ -55,6 +55,7 @@ usage = """[-u|--url <site URL> -v|--verbose <level>]
         -v feed     Run tests on <feed> elements response only
         -v paging   Run tests on paging hyperlinks in <feed> only
         -v entry    Run tests on <entry> elements only
+        -v debug    Show lots of intermediate output
         """
 
 def main(argv):
