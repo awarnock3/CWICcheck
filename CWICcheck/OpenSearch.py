@@ -16,6 +16,9 @@ def openSearchTests(siteName,testUrl,verbose):
     # Loop over the list of URLs to test
     print "Test %s" % siteName
     
+    if verbose == "debug":
+      print "*DEBUG* Test URL=%s" % testUrl
+
     # Parse the incoming URL to get all of the parameters and store them locally
     urlParms = parseUrl(testUrl)
     queryParms = {}
@@ -28,6 +31,9 @@ def openSearchTests(siteName,testUrl,verbose):
     else:
         theStartPage = None
         
+    if verbose == "debug":
+      print "*DEBUG* startPage=%s" % theStartPage
+
     # Get number of hits requested
     if 'count' in queryParms:
         theCount = queryParms['count'][0]
@@ -63,7 +69,13 @@ def openSearchTests(siteName,testUrl,verbose):
         theGeoBox = queryParms['geoBox'][0]
     else:
         theGeoBox = None
-    
+        
+    if verbose == "debug":
+      print "*DEBUG* geoBox=%s" % theGeoBox
+        
+    if verbose == "debug":
+      print "*DEBUG* Sending URL to server"
+
     # Send the URL off for a response
     try:
         response = requests.get(testUrl)
@@ -71,9 +83,12 @@ def openSearchTests(siteName,testUrl,verbose):
         print "*FAIL* Could not get response."
         print " "
         return
+        
+    if verbose == "debug":
+      print "*DEBUG* Got response."
       
     # Evaluate the response
-    if (verbose == "full" or verbose == "headers"):    # The HTTP return status should be 200 for success
+    if (verbose == "full" or verbose == "headers" or verbose == "debug"):    # The HTTP return status should be 200 for success
         expectedStatusCode = 200
         if (testStatus(expectedStatusCode,response)):
             print "*PASS* %s: Got expected HTTP Status Code %s" % (siteName,expectedStatusCode)
